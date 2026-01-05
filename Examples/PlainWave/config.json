@@ -1,0 +1,11 @@
+{
+    "nx":100,
+    "ny":100,
+    "nz":1,
+    "dx":0.1,
+    "dt":0.001,
+    "nt":1000,
+    "nprint":10,
+
+    "InitialCondition":"PlainWave.in"
+}
