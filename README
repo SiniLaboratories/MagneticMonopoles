@@ -1,0 +1,1 @@
+The goal of this project is to implement a simulator capable of solving Maxwell's equation with the introduction of the magnetic monopole therms. The project is written in rust as an exercice carried out by myself.

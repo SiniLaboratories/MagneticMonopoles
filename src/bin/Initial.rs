@@ -1,18 +1,48 @@
-mod write_read_file;
+use std::env;
+use magnetic_monopoles::write_read_file;
+use magnetic_monopoles::index_conversion;
+use magnetic_monopoles::structs;
+
 
 fn main() 
 {
     println!("Generation of initial condition started");
     let args: Vec<String> = env::args().collect();
 
-    println!("Example: plain wave propagation")
+    //println!("Example: Single charge at center of the domain");
 
     println!("Loading configuration file...");
-    println!("{}",args[0]);
-    let json_config = write_read_file::import_configuration_file(args[0]).expect("Invalid JSON");
+    println!("{}",args[1]);
+    let json_config = write_read_file::import_configuration_file(&args[1]).expect("Invalid JSON");
 
-    println!(json_config["nx"]);
+    println!("Generating initial condition...");
 
-    //Load configuration file
+    let nx = json_config["GridParameters"]["nx"].as_u64().unwrap() as usize;
+    let ny = json_config["GridParameters"]["ny"].as_u64().unwrap() as usize;
+    let nz = json_config["GridParameters"]["nz"].as_u64().unwrap() as usize;
 
+    let ntot = nx*ny*nz;
+    let structArray = vec![structs::Point {..Default::default()}; ntot];
+
+    for i in 0..ntot
+    {
+        //For loop where the initial condituion is set
+        let (ix, iy, iz) = magnetic_monopoles::index_to_3d(i, nx, ny, nz);
+        //println!("i: {} -> ix: {}, iy: {}, iz: {}", i, ix, iy, iz);
+
+        if ix == 50 && iy == 50 && iz == 0
+        {
+            structArray[i].rhoep = 1.0;
+        }
+    }
+
+    println!("Writing the initial condition file: {}",json_config["InitialCondition"]);
+
+    // file
+    let filename = json_config["InitialCondition"].as_str().unwrap();
+
+    write_read_file::write_initial_condition_file(filename, &structArray).expect("Unable to write file");
+
+    println!("Initial condition file written: {}",filename);
+    println!("Initial condition generation completed.");
 }
