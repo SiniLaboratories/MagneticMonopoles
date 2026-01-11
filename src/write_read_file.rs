@@ -17,35 +17,31 @@ pub fn import_configuration_file(path: &str) -> Result<Value> {
     Ok(v)
 }
 
-/*
-pub fn write_initial_condition_file(path: &str, data: &Vec<super::structs::Point>) -> std::io::Result<()> {
+pub fn write_condition_file(path: &str, data: &Vec<super::structs::Point>) -> std::io::Result<()> {
     use std::io::Write;
-    let mut file = File::create(path)?;
-
-    for point in data {
-        
-    }
-
-    Ok(())
-}
-
-
-fn main() -> bincode::Result<()> {
-    // 1. Dati di esempio
-    let utenti = vec![
-        Utente { nome: "Alice".to_string(), id: 1, attivo: true },
-        Utente { nome: "Bob".to_string(), id: 2, attivo: false },
-    ];
-
-    // 2. Crea il file (usiamo BufWriter per migliorare le performance di scrittura)
-    let file = File::create("utenti.bin").expect("Impossibile creare il file");
-    let mut writer = BufWriter::new(file);
-
-    // 3. Serializza direttamente nel file
-    bincode::serialize_into(&mut writer, &utenti)?;
+    use bincode;
     
-    println!("Array di struct salvato in formato binario!");
+    // 1. Create the file
+    let mut file = File::create(path)?;
+    
+    // 2. Serialize the data and write it to the file
+    let encoded: Vec<u8> = bincode::serialize(data)?;
+    file.write_all(&encoded)?;
+    
     Ok(())
 }
 
-*/
+pub fn read_condition_file(path: &str) -> std::io::Result<Vec<super::structs::Point>> { 
+    use std::fs::File;
+    use std::io::BufReader;
+    use bincode;
+    
+    // 1. Open the file
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    
+    // 2. Deserialize the data from the file
+    let points: Vec<super::structs::Point> = bincode::deserialize_from(reader)?;
+    
+    Ok(points)
+} 
