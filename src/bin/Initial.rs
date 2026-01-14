@@ -41,7 +41,13 @@ fn main()
     // file
     let filename = json_config["InitialCondition"].as_str().unwrap();
 
-    write_read_file::write_initial_condition_file(filename, &structArray).expect("Unable to write file");
+    //write_read_file::write_condition_file(filename, &structArray).expect("Unable to write file");
+    
+    match write_read_file::write_condition_file(filename, &structArray) {
+        Ok(_) => println!("File saved successfully"),
+        Err(e) => eprintln!("Errore during saving", e),
+    }
+
 
     println!("Initial condition file written: {}",filename);
     println!("Initial condition generation completed.");
