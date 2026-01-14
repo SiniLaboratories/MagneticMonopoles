@@ -1,6 +1,8 @@
+use std::env;
+
 fn main()
 {
-    print("Plotting: ")
-    let args: Vec<String> = env::args().collect();
+    println!("Plotting: ");
+    let _args: Vec<String> = env::args().collect();
 }
 

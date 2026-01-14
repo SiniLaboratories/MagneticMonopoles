@@ -22,17 +22,17 @@ fn main()
     let nz = json_config["GridParameters"]["nz"].as_u64().unwrap() as usize;
 
     let ntot = nx*ny*nz;
-    let structArray = vec![structs::Point {..Default::default()}; ntot];
+    let mut struct_array = vec![structs::Point {..Default::default()}; ntot];
 
     for i in 0..ntot
     {
         //For loop where the initial condituion is set
-        let (ix, iy, iz) = magnetic_monopoles::index_to_3d(i, nx, ny, nz);
+        let (ix, iy, iz) = index_conversion::index_to_3d(i, nx, ny, nz);
         //println!("i: {} -> ix: {}, iy: {}, iz: {}", i, ix, iy, iz);
 
         if ix == 50 && iy == 50 && iz == 0
         {
-            structArray[i].rhoep = 1.0;
+            struct_array[i].rhoep = 1.0;
         }
     }
 
@@ -43,9 +43,9 @@ fn main()
 
     //write_read_file::write_condition_file(filename, &structArray).expect("Unable to write file");
     
-    match write_read_file::write_condition_file(filename, &structArray) {
+    match write_read_file::write_condition_file(filename, &struct_array) {
         Ok(_) => println!("File saved successfully"),
-        Err(e) => eprintln!("Errore during saving", e),
+        Err(e) => eprintln!("Errore during saving {}", e),
     }
 
 

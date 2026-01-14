@@ -1,5 +1,6 @@
 use std::env;
 mod write_read_file;
+mod structs;
 
 fn main() 
 {
