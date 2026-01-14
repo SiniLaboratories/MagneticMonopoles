@@ -42,7 +42,7 @@ pub fn write_condition_file<P: AsRef<Path>>(
 }
 
 
-pub fn  read_condition_file<P: AsRef<Path>>(path: P) -> Result<Vec<super::structs::Point>, Box<dyn std::error::Error>> 
+pub fn read_condition_file<P: AsRef<Path>>(path: P) -> Result<Vec<super::structs::Point>, Box<dyn std::error::Error>> 
 { 
     //use std::fs::File;
     //use std::io::BufReader;

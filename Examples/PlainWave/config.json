@@ -11,9 +11,12 @@
         "dz":0.1
     },
     
-    "dt":0.001,
-    "nt":1000,
-    "nprint":10,
+    "ComputationParameters":{
+        "dt":0.001,
+        "NumberOfIterations":1000,
+        "OutputFrequency":20
+    },
+    
 
     "PhysicalParameters":{
         "m_ep":1.0,
