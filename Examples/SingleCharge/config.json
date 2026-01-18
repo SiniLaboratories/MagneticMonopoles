@@ -1,6 +1,6 @@
 {
-    "InitialCondition":"./Examples/PlainWave/cond.in",
-    "StepPaths":"./Examples/PlainWave/Steps",
+    "InitialCondition":"./Examples/SingleCharge/cond.in",
+    "StepPaths":"./Examples/SingleCharge/Steps",
 
     "GridParameters":{
         "nx":100,

@@ -3,7 +3,7 @@ use std::ops::{Add, Mul};
 
 
 //Struct of a single physical point in space
-#[derive(Default,Serialize, Deserialize, Clone)]
+#[derive(Default,Serialize, Deserialize, Clone,Copy)]
 pub struct Point {
     pub rho_em: f64,
     pub v_em: [f64; 3],
@@ -19,7 +19,7 @@ pub struct Point {
 }
 
 //Struct of the time derivative of a physical point in space
-#[derive(Default, Clone)]
+#[derive(Default, Clone,Copy)]
 pub struct DtPoint {
     pub rho_em: f64,
     pub v_em: [f64; 3],
