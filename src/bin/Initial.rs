@@ -32,7 +32,7 @@ fn main()
 
         if ix == 50 && iy == 50 && iz == 0
         {
-            struct_array[i].rhoep = 1.0;
+            struct_array[i].rho_ep = 1.0;
         }
     }
 
