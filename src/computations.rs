@@ -35,6 +35,10 @@ pub fn f(struct_array: &Vec<super::structs::Point>, json_config: &serde_json::Va
 
     let ntot = nx*ny*nz;
 
+    let dx = json_config["GridParameters"]["dx"].as_f64().unwrap();
+    let dy = json_config["GridParameters"]["dy"].as_f64().unwrap();
+    let dz = json_config["GridParameters"]["dz"].as_f64().unwrap();
+
     let c = json_config["PhysicalParameters"]["c"].as_f64().unwrap();
     let m_ep = json_config["PhysicalParameters"]["m_ep"].as_f64().unwrap();
     let m_em = json_config["PhysicalParameters"]["m_em"].as_f64().unwrap();
@@ -66,30 +70,92 @@ pub fn f(struct_array: &Vec<super::structs::Point>, json_config: &serde_json::Va
         let i_zm2 = crate::index_conversion::index_from_3d(ix,iy,iz-2,nx,ny,nz);
         
 
-        //dB/dt --> rotor of E & j_e
-        let rotB_x = 0.0;
-
         //dE/dt --> rotor of B & j_b
+        let dBz_dy = 0.0;
+        let dBy_dz = 0.0;
+        let dBz_dx = 0.0;
+        let dBx_dz = 0.0;
+        let dBy_dx = 0.0;
+        let dBx_dy = 0.0;
+        let rotB_x = dBz_dy - dBy_dz;
+        let rotB_y = dBz_dx - dBx_dz;
+        let rotB_z = dBy_dx - dBx_dy;
+
+        //NOTE: j_e/m_xyz could be implemented inside a struct as function megas, would be easyer. 
+        //the total current is determined by two different sus types of flux
+
+        let j_e_x = 0.0;
+        let j_e_y = 0.0;
+        let j_e_z = 0.0;
+
+        out_array[i].E[0] = c * (rotB_x) - 4 * pi * j_e_x; //dEx/dt = +- rotBx/c +- j_m_x/c
+        out_array[i].E[1] = c * (rotB_y) - 4 * pi * j_e_y; //dEy/dt = +- rotBy/c +- j_m_y/c
+        out_array[i].E[2] = c * (rotB_z) - 4 * pi * j_e_z; //dEz/dt = +- rotBz/c +- j_m_z/c
+
+        //dB/dt --> rotor of E & j_e
+        let dEz_dy = 0.0;
+        let dEy_dz = 0.0;
+        let dEz_dx = 0.0;
+        let dEx_dz = 0.0;
+        let dEy_dx = 0.0;
+        let dEx_dy = 0.0;
+        let rotE_x = dEz_dy - dEy_dz;
+        let rotE_y = dEz_dx - dEx_dz;
+        let rotE_z = dEy_dx - dEx_dy;
+
+        let j_m_x = 0.0; 
+        let j_m_y = 0.0;
+        let j_m_z = 0.0;
+
+        out_array[i].B[0] = c * (rotE_x) - 4 * pi * j_m_x; //dEx/dt = +- rotBx/c +- j_m_x/c
+        out_array[i].B[1] = c * (rotE_y) - 4 * pi * j_m_y; //dEy/dt = +- rotBy/c +- j_m_y/c
+        out_array[i].B[2] = c * (rotE_z) - 4 * pi * j_m_z; //dEz/dt = +- rotBz/c +- j_m_z/c
+        
+
+        //divegence of rho_em
+        let div_j_em = 0.0;
+        out_array[i].rho_em = -1*div_j_em;
 
         //divegence of j_ep
-
-        //divegence of j_em
-
-        //divegence of j_mp
+        let div_j_ep = 0.0;
+        out_array[i].rho_ep = -1*div_j_ep;
 
         //divegence of j_mm
+        let div_j_mm = 0.0;
+        out_array[i].rho_mm = -1*div_j_mm;
 
+        //divegence of j_mp
+        let div_j_mp = 0.0;
+        out_array[i].rho_mp = -1*div_j_mp;
 
-        //lorentz force for ep
 
         //lorentz force for em
 
-        //lorentz force for mp
+        //lorentz force for ep
 
         //lorentz force for mm
+
+        //lorentz force for mp
 
     }
 
     
     Ok(out_array)
 }
+
+
+/*
+fn rot_B()
+
+fn rot_E()
+
+fn div_j_ep()
+fn div_j_em()
+fn div_j_mp()
+fn div_j_mm()
+
+fn vector_product()
+
+fn lorentzian(velocity_vector,c)
+
+*/
