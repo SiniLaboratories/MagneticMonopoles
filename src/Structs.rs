@@ -82,3 +82,39 @@ impl Add for Point {
         }
     }
 }
+
+
+//Implementation of charge current density for j_em, j_ep, j_mm, j_mp as arrays
+impl Point {
+    pub fn j_em(&self) -> [f64; 3] {
+        [
+            self.rho_em * self.v_em[0],
+            self.rho_em * self.v_em[1],
+            self.rho_em * self.v_em[2],
+        ]
+    }
+
+    pub fn j_ep(&self) -> [f64; 3] {
+        [
+            self.rho_ep * self.v_ep[0],
+            self.rho_ep * self.v_ep[1],
+            self.rho_ep * self.v_ep[2],
+        ]
+    }
+
+    pub fn j_mm(&self) -> [f64; 3] {
+        [
+            self.rho_mm * self.v_mm[0],
+            self.rho_mm * self.v_mm[1],
+            self.rho_mm * self.v_mm[2],
+        ]
+    }
+
+    pub fn j_mp(&self) -> [f64; 3] {
+        [
+            self.rho_mp * self.v_mp[0],
+            self.rho_mp * self.v_mp[1],
+            self.rho_mp * self.v_mp[2],
+        ]
+    }
+}

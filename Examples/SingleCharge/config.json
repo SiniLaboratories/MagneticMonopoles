@@ -19,7 +19,7 @@
     
 
     "PhysicalParameters":{
-        "c":1.0,
+        "c":10.0,
         "m_ep":1.0,
         "m_em":1.0,
         "m_mp":1.0,
