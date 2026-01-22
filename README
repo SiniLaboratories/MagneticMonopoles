@@ -5,5 +5,5 @@ Example commands for test phase
 cargo build
 cargo run
 
-cargo run --bin Initial ./Examples/SingleCharge/conf.json
-cargo run ./Examples/SingleCharge/conf.json
+cargo run --bin Initial ./Examples/SingleCharge/config.json
+cargo run --bin magnetic_monopoles ./Examples/SingleCharge/conf.json

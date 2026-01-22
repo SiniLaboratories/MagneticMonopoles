@@ -11,7 +11,7 @@ pub fn index_to_3d(i:usize, nx:usize, ny:usize, _nz:usize) -> (usize, usize, usi
 
 
 //Function that converts ix iy iz to index i
-pub fn index_from_3d(ix:usize, iy:usize, iz:usize, nx:usize, ny:usize, nz:usize) -> usize
+pub fn index_from_3d(ix:i32, iy:i32, iz:i32, nx:usize, ny:usize, nz:usize) -> usize
 {
     let ix2 = ix % nx;
     let iy2 = iy % ny;  

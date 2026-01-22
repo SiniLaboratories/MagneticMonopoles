@@ -14,7 +14,8 @@
     "ComputationParameters":{
         "dt":0.001,
         "NumberOfIterations":1000,
-        "OutputFrequency":20
+        "OutputFrequency":20,
+        "relativistic":false
     },
     
 
