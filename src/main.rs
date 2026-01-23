@@ -7,12 +7,10 @@ mod computations;
 
 fn main() 
 {
-    println!("Generation of initial condition started");
+    println!("Program started");
     let args: Vec<String> = env::args().collect();
 
-    println!("Example: plain wave propagation");
-
-    println!("Loading configuration file...");
+    println!("Loading configuration file: {}",args[1]);
     let json_config = write_read_file::import_configuration_file(&args[1]).expect("Invalid JSON");
 
     println!("Loading initial condition file: {}",json_config["InitialCondition"]);
@@ -21,8 +19,6 @@ fn main()
     let mut struct_array = write_read_file::read_condition_file(json_config["InitialCondition"].as_str().unwrap()).expect("Could not load initial condition file");
 
     println!("Initial condition imported successfully! ");
-
-    let mut iteration = 0;
 
     println!("Starting the computation");
 
@@ -46,7 +42,7 @@ fn main()
 
     println!("Computation finished");
 
-    let filename_out = format!("{}//{}.in", json_config["StepPaths"].as_str().unwrap(), iteration.to_string());
+    let filename_out = format!("{}/{}.in", json_config["StepPaths"].as_str().unwrap(), json_config["ComputationParameters"]["NumberOfIterations"].as_u64().unwrap() .to_string());
     println!("Writing down final output {}",filename_out);
 
 

@@ -60,18 +60,18 @@ pub fn f(struct_array: &Vec<super::structs::Point>, json_config: &serde_json::Va
 
         let i_xp1 = crate::index_conversion::index_from_3d(ix+1,iy,iz,nx,ny,nz);
         let i_xp2 = crate::index_conversion::index_from_3d(ix+2,iy,iz,nx,ny,nz);
-        let i_xm1 = crate::index_conversion::index_from_3d(ix-1,iy,iz,nx,ny,nz);
-        let i_xm2 = crate::index_conversion::index_from_3d(ix-2,iy,iz,nx,ny,nz);
+        let i_xm1 = crate::index_conversion::index_from_3d(ix+nx*2-1,iy,iz,nx,ny,nz);
+        let i_xm2 = crate::index_conversion::index_from_3d(ix+nx*2-2,iy,iz,nx,ny,nz);
 
         let i_yp1 = crate::index_conversion::index_from_3d(ix,iy+1,iz,nx,ny,nz);
         let i_yp2 = crate::index_conversion::index_from_3d(ix,iy+2,iz,nx,ny,nz);
-        let i_ym1 = crate::index_conversion::index_from_3d(ix,iy-1,iz,nx,ny,nz);
-        let i_ym2 = crate::index_conversion::index_from_3d(ix,iy-1,iz,nx,ny,nz);
+        let i_ym1 = crate::index_conversion::index_from_3d(ix,iy+ny*2-1,iz,nx,ny,nz);
+        let i_ym2 = crate::index_conversion::index_from_3d(ix,iy+ny*2-2,iz,nx,ny,nz);
 
         let i_zp1 = crate::index_conversion::index_from_3d(ix,iy,iz+1,nx,ny,nz);
         let i_zp2 = crate::index_conversion::index_from_3d(ix,iy,iz+2,nx,ny,nz);
-        let i_zm1 = crate::index_conversion::index_from_3d(ix,iy,iz-1,nx,ny,nz);
-        let i_zm2 = crate::index_conversion::index_from_3d(ix,iy,iz-2,nx,ny,nz);
+        let i_zm1 = crate::index_conversion::index_from_3d(ix,iy,iz+nz*2-1,nx,ny,nz);
+        let i_zm2 = crate::index_conversion::index_from_3d(ix,iy,iz+nz*2-2,nx,ny,nz);
         
 
         //dE/dt --> rotor of B & j_b
